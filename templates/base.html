@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exam Practice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<form id="exam_form" class="m-3" action="{{ url_for('select_exam') }}" method="post">
+    <select id="select_exam" class="form-select" name="select_exam">
+        {% for item in exam_list %}
+            {% if item == exam_name %}
+                <option value="{{item}}" selected>{{item|upper()}}</option>
+            {% else %}
+                <option value="{{item}}">{{item|upper()}}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+    <button form="exam_form" id="exam-select-btn" type="submit" class="btn btn-primary btn-block btn-large">Select</button>
+</form>
+<p class="question_text p-3">
+    {% for line in question.split('\n')[:-1] %}
+        {{ line }}<br>
+    {% endfor %}
+    {{ question.split('\n')[-1] }}
+</p>
+
+{% block content %}
+{% endblock %}
+
+<div class="fixed p-2">
+    <button form="quiz_form" type="submit" name="submit" value="submit" class="btn btn-primary btn-block btn-large m-1" {{disabled}}>Submit</button>
+    <a href="{{ url_for('next_question') }}" class="btn btn-primary btn-block btn-large m-1">Next</a>
+    <a href="{{ url_for('export') }}" class="btn btn-primary btn-block btn-large m-1" onclick="alert('Export successful!')">Export</a>
+</div>
+
+</body>
+</html>
