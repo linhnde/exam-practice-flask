@@ -4,40 +4,21 @@ html {
 
 body {
 	color: white;
-	background-color: #12486B;
+	background-color: #008DDA;
 	margin: auto;
 	width: 50%;
 }
 
-#exam_form {
-    height: 2.4rem;
-}
-
-.form-select {
-    float: left;
-    width: 81%;
-}
-
 #exam-select-btn {
-    float: right;
-    width: 18%;
-    margin: 0;
+    width: 20%;
 }
 
-.question_text {
-    margin: 0;
-}
-
-#quiz_form {
-    margin-bottom: 3rem;
+#exam-export-btn {
+    width: 20%;
 }
 
 label {
     display: flex;
-}
-
-#quiz_form input {
-    margin: auto 1rem auto 0;
 }
 
 .checked label {
@@ -45,14 +26,16 @@ label {
 }
 
 .checked .correct {
-    outline: 1px solid green;
+    outline: 0.08rem solid lime;
+    border-radius: 0.2rem;
 }
 .checked .incorrect {
-   outline: 1px solid red;
+   outline: 0.08rem solid orangered;
+   border-radius: 0.2rem;
 }
 
 .fixed {
-    width: 100%;
+    width: 50%;
     text-align: center;
     position: fixed;
     bottom: 0;
@@ -64,14 +47,18 @@ label {
     display: inline-block;
 }
 
+#ans_submit, #ans_next {
+    width: 20%;
+}
+
 @media only screen and (max-width: 1280px) {
-    body {
+    body, .fixed {
         width: 60%;
     }
 }
 
 @media only screen and (max-width: 1024px) {
-    body {
+    body, .fixed {
         width: 75%;
     }
 
@@ -81,7 +68,7 @@ label {
 }
 
 @media only screen and (max-device-width: 768px) {
-    body {
+    body, .fixed {
         width: 90%;
     }
 
@@ -91,7 +78,7 @@ label {
 }
 
 @media only screen and (max-device-width: 425px) {
-    body {
+    body, .fixed {
         width: 100%;
     }
 

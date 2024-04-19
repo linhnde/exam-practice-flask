@@ -1,5 +1,5 @@
-flask~=3.0.0
-requests==2.31.0
+flask
+requests
 debugpy # Required for debugging.
 
-pandas~=2.1.2
+pandas

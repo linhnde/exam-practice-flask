@@ -5,10 +5,11 @@
     <title>Exam Practice</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='function.js') }}"></script>
 </head>
 <body>
-<form id="exam_form" class="m-3" action="{{ url_for('select_exam') }}" method="post">
-    <select id="select_exam" class="form-select" name="select_exam">
+<form id="exam_form" class="p-3 d-flex" action="{{ url_for('select_exam') }}" method="post">
+    <select id="select_exam" class="form-select me-2" name="select_exam">
         {% for item in exam_list %}
             {% if item == exam_name %}
                 <option value="{{item}}" selected>{{item|upper()}}</option>
@@ -17,22 +18,38 @@
             {% endif %}
         {% endfor %}
     </select>
-    <button form="exam_form" id="exam-select-btn" type="submit" class="btn btn-primary btn-block btn-large">Select</button>
+    <button form="exam_form" id="exam-select-btn" type="submit" class="btn btn-dark btn-block btn-large me-2">Select</button>
+    {% if for_export %}
+        <a href="{{ url_for('export') }}" id="exam-export-btn" class="btn btn-dark btn-block btn-large" onclick="alert('Export successful!')">Export</a>
+    {% else %}
+        <a href="{{ url_for('export') }}" id="exam-export-btn" class="btn btn-dark btn-block btn-large disabled" aria-disabled="true" onclick="alert('Export successful!')">Export</a>
+    {% endif %}
 </form>
-<p class="question_text p-3">
-    {% for line in question.split('\n')[:-1] %}
-        {{ line }}<br>
-    {% endfor %}
-    {{ question.split('\n')[-1] }}
-</p>
+<div class="question_text p-3">
+    {% with question_split = question.split('\n')[:-1] %}
+        <p class="fw-bold fst-italic">{{question_split[0]}}</p>
+        <p class="fst-italic m-0">
+        {% for line in question_split[1:] %}
+            {% if line[:5] == 'https' %}
+                <img class="w-100 p-3" src="{{line}}"><br>
+            {% else %}
+                {{ line }}<br>
+            {% endif %}
+        {% endfor %}
+        </p>
+    {% endwith %}
+</div>
 
 {% block content %}
 {% endblock %}
 
-<div class="fixed p-2">
-    <button form="quiz_form" type="submit" name="submit" value="submit" class="btn btn-primary btn-block btn-large m-1" {{disabled}}>Submit</button>
-    <a href="{{ url_for('next_question') }}" class="btn btn-primary btn-block btn-large m-1">Next</a>
-    <a href="{{ url_for('export') }}" class="btn btn-primary btn-block btn-large m-1" onclick="alert('Export successful!')">Export</a>
+<div class="fixed p-3">
+    <button id="ans_submit" form="quiz_form" type="submit" name="submit" value="submit" class="btn btn-dark btn-block btn-large me-2" disabled>Submit</button>
+    {% if go_next %}
+        <a href="{{ url_for('next_question') }}" id="ans_next" class="btn btn-dark btn-block btn-large">Next</a>
+    {% else %}
+        <a href="{{ url_for('next_question') }}" id="ans_next" class="btn btn-dark btn-block btn-large disabled" aria-disabled="true">Next</a>
+    {% endif %}
 </div>
 
 </body>
