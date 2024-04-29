@@ -1,5 +1,6 @@
 flask
 requests
 debugpy # Required for debugging.
-
+google-cloud-storage
+gcsfs
 pandas

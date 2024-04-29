@@ -17,13 +17,6 @@
             </Attribute>
           </value>
         </entry>
-        <entry key="/data/failed_pca_bank.csv">
-          <value>
-            <Attribute>
-              <option name="separator" value="," />
-            </Attribute>
-          </value>
-        </entry>
         <entry key="/data/pca_bank.csv">
           <value>
             <Attribute>

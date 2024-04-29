@@ -1,9 +1,27 @@
-import os
 import random
-
+from google.cloud import storage
+from flask import Flask, render_template, request, redirect, url_for, session
 from modules.data import *
 from modules.quiz_brain import *
-from flask import Flask, render_template, request, redirect, url_for, session
+
+
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google_credentials/exam-practice-404408-22a26d6c4fff.json'
+bucket = "exam-banks"
+
+
+def list_blobs(bucket_name):
+    """Lists all the blobs in the bucket."""
+    # bucket_name = "your-bucket-name"
+    storage_client = storage.Client()
+
+    # Note: Client.list_blobs requires at least package version 1.17.0.
+    blobs = storage_client.list_blobs(bucket_name)
+
+    # Note: The call returns a response only when the iterator is consumed.
+    file_list = [blob.name for blob in blobs]
+    # print(file_list)
+    return file_list
+
 
 exam_list = []
 exam_library = {}
@@ -14,7 +32,8 @@ app.secret_key = 'i12637812hd8172dyi12937'
 
 def load_exam():
     global exam_list, exam_library
-    exam_list = [filename[:-9] for filename in os.listdir('data')]
+    file_list = list_blobs(bucket)
+    exam_list = [filename[:-9] for filename in file_list]
     exam_library = {exam: compose_data(exam).copy() for exam in exam_list}
 
 
@@ -132,8 +151,8 @@ def next_question():
 def export():
     q_bank = exam_library[session['exam_name']]
     failed_bank = q_bank.iloc[session['failed_list']]
-    filename = f'data/failed_{session["exam_name"]}_bank.csv'
-    failed_bank.to_csv(filename, mode='w', index=False)
+    filename = f'failed_{session["exam_name"]}_bank.csv'
+    failed_bank.to_csv(f"gs://{bucket}/{filename}", index=False)
     load_exam()
     return redirect(url_for('homepage'))
 

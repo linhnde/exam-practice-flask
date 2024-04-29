@@ -5,11 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="409b86cf-8064-4b7b-90a0-76ba2511041b" name="Changes" comment="Update new data">
-      <change afterPath="$PROJECT_DIR$/data/pde_bank.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/failed_pca_bank.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/pde_exam.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/ace_bank.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/pca_bank.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/pde_bank.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/modules/data.py" beforeDir="false" afterPath="$PROJECT_DIR$/modules/data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,20 +68,27 @@
     "Python.app.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.google.cloudcode.ide_session_index": "20240427_0000",
+    "com.google.cloudcode.ide_session_index": "20240429_0000",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Users/linh/git/exam-practice-webapp/data",
-    "settings.editor.selected.configurable": "com.intellij.pycharm.community.ide.impl.configuration.PythonContentEntriesConfigurable"
+    "last_opened_file_path": "/Users/linh/git/exam-practice-webapp/google_credentials",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  },
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "PLAIN_TEXT"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/google_credentials" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/modules" />
       <recent name="$PROJECT_DIR$/static" />
       <recent name="$PROJECT_DIR$/templates" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/google_credentials" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/modules" />
     </key>
@@ -278,7 +289,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713541630633</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Update new data">
+      <option name="closed" value="true" />
+      <created>1714360127612</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1714360127612</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
