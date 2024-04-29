@@ -5,11 +5,17 @@ from modules.data import *
 from modules.quiz_brain import *
 from flask import Flask, render_template, request, redirect, url_for, session
 
-exam_list = [filename[:-9] for filename in os.listdir('data')]
-exam_library = {exam: compose_data(exam).copy() for exam in exam_list}
+exam_list = []
+exam_library = {}
 
 app = Flask(__name__)
 app.secret_key = 'i12637812hd8172dyi12937'
+
+
+def load_exam():
+    global exam_list, exam_library
+    exam_list = [filename[:-9] for filename in os.listdir('data')]
+    exam_library = {exam: compose_data(exam).copy() for exam in exam_list}
 
 
 def reset_progress():
@@ -128,6 +134,7 @@ def export():
     failed_bank = q_bank.iloc[session['failed_list']]
     filename = f'data/failed_{session["exam_name"]}_bank.csv'
     failed_bank.to_csv(filename, mode='w', index=False)
+    load_exam()
     return redirect(url_for('homepage'))
 
 
@@ -146,5 +153,6 @@ def finish():
 
 
 if __name__ == '__main__':
+    load_exam()
     server_port = os.environ.get('PORT', '8080')
     app.run(debug=True, port=server_port, host='0.0.0.0')
