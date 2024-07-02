@@ -5,8 +5,8 @@ from modules.data import *
 from modules.quiz_brain import *
 
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google_credentials/exam-practice-404408-22a26d6c4fff.json'
-bucket = "exam-banks"
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google_credentials/load-quiz-bank.json'
+BUCKET = "exam-banks"
 
 
 def list_blobs(bucket_name):
@@ -32,7 +32,7 @@ app.secret_key = 'i12637812hd8172dyi12937'
 
 def load_exam():
     global exam_list, exam_library
-    file_list = list_blobs(bucket)
+    file_list = list_blobs(BUCKET)
     exam_list = [filename[:-9] for filename in file_list]
     exam_library = {exam: compose_data(exam).copy() for exam in exam_list}
 
@@ -152,7 +152,7 @@ def export():
     q_bank = exam_library[session['exam_name']]
     failed_bank = q_bank.iloc[session['failed_list']]
     filename = f'failed_{session["exam_name"]}_bank.csv'
-    failed_bank.to_csv(f"gs://{bucket}/{filename}", index=False)
+    failed_bank.to_csv(f"gs://{BUCKET}/{filename}", index=False)
     load_exam()
     return redirect(url_for('homepage'))
 
