@@ -12,7 +12,7 @@
     <select id="select_exam" class="form-select me-2" name="select_exam">
         {% for item in exam_list %}
             {% if item == exam_name %}
-                <option value="{{item}}" selected>{{item|upper()}}</option>
+                <option value="{{item}}" selected>{{item}}</option>
             {% else %}
                 <option value="{{item}}">{{item|upper()}}</option>
             {% endif %}
@@ -26,7 +26,7 @@
     {% endif %}
 </form>
 <div class="question_text p-3">
-    {% with question_split = question.split('\n')[:-1] %}
+    {% with question_split = question.split('\n') %}
         <p class="fw-bold fst-italic">{{question_split[0]}}</p>
         <p class="fst-italic m-0">
         {% for line in question_split[1:] %}

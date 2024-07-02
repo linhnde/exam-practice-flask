@@ -1,27 +1,14 @@
+# Import packages
+import os
 import random
-from google.cloud import storage
 from flask import Flask, render_template, request, redirect, url_for, session
+
+# Import functions in modules
 from modules.data import *
 from modules.quiz_brain import *
 
-
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google_credentials/load-quiz-bank.json'
 BUCKET = "exam-banks"
-
-
-def list_blobs(bucket_name):
-    """Lists all the blobs in the bucket."""
-    # bucket_name = "your-bucket-name"
-    storage_client = storage.Client()
-
-    # Note: Client.list_blobs requires at least package version 1.17.0.
-    blobs = storage_client.list_blobs(bucket_name)
-
-    # Note: The call returns a response only when the iterator is consumed.
-    file_list = [blob.name for blob in blobs]
-    # print(file_list)
-    return file_list
-
 
 exam_list = []
 exam_library = {}
@@ -33,14 +20,25 @@ app.secret_key = 'i12637812hd8172dyi12937'
 def load_exam():
     global exam_list, exam_library
     file_list = list_blobs(BUCKET)
-    exam_list = [filename[:-9] for filename in file_list]
-    exam_library = {exam: compose_data(exam).copy() for exam in exam_list}
+    for full_name in file_list:
+        parts = full_name.split('.')
+        # print(parts)
+        file_name = parts[0]
+        extension = parts[1]
+        if extension == 'json':
+            extracts = file_name.split('_')
+            # print(extracts)
+            exam_name = f"{extracts[0].upper()} ({extracts[1].title()}, {extracts[2]})"
+            # print(exam_name)
+            exam_list.append(exam_name)
+            exam_library[exam_name] = compose_data(BUCKET, full_name).copy()
+    # print(exam_list)
 
 
 def reset_progress():
     session['started'] = True
     if not session.get('exam_name'):
-        session['exam_name'] = 'pde'
+        session['exam_name'] = exam_list[0]
     session['question_index'] = []
     session['turn'] = 0
     session['q_text'] = ""

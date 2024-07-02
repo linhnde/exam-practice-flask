@@ -9,18 +9,9 @@ def still_has_questions(df, question_index: int):
 
 def get_next(df, question_index):
     current_question = df.loc[question_index]
-    q_text = current_question['question']
-
-    incorrect_cols = [col for col in df.columns if re.search(r'^incorrect', col)]
-    incorrect_ans = current_question[incorrect_cols].to_list()
-
-    correct_cols = [col for col in df.columns if re.search(r'^correct', col)]
-    correct_ans = current_question[correct_cols].to_list()
-
-    full_question = {'question': q_text,
-                     'incorrect': incorrect_ans,
-                     'correct': correct_ans}
-    return full_question
+    return {'question': current_question['question'],
+            'incorrect': current_question['incorrect'],
+            'correct': current_question['correct']}
 
 
 def check_answer(correct_clean, user_ans):
@@ -29,4 +20,3 @@ def check_answer(correct_clean, user_ans):
     counter_user = Counter(user_ans)
     # print(counter_user)
     return counter_user == counter_correct
-
