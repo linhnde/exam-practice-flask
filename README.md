@@ -4,10 +4,10 @@ Simulating a demand for practicing on certain quiz set, I create this web app.
 
 Originally, the app was built on Tkinter. But later I adapted it on Flask to take advantages of responsive designing.
 
-Using Google Cloud Run and their flexible model for deploying, expense is saved significantly in the early stage.
+Using Google Cloud Run for deploying, we can save expense significantly in the early stage 
+as we don't have to worry about 24/7 uptime bill.
 
-I can freely share it with friends without worry much about 24/7 backend bill.
-Considering further use with public access, Google Cloud Run also make it easily to scale up the infrastructures.
+Google Cloud Run also make it easily to scale up the infrastructures if we need later.
 
 ## Folder structure
 
