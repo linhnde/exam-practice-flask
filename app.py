@@ -4,7 +4,7 @@ import random
 from flask import Flask, render_template, request, redirect, url_for, session
 
 # Import functions in modules
-from modules.data import *
+from modules.data_load import *
 from modules.quiz_brain import *
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google_credentials/load-quiz-bank.json'
