@@ -1,3 +1,5 @@
+## Introduction
+
 This lightweight web application is the result while simulating a demand for practicing on certain quiz set. It is built on Flask.
 
 The app has basic functions:
