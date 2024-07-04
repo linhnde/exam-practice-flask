@@ -14,7 +14,7 @@
             {% if item == exam_name %}
                 <option value="{{item}}" selected>{{item}}</option>
             {% else %}
-                <option value="{{item}}">{{item|upper()}}</option>
+                <option value="{{item}}">{{item}}</option>
             {% endif %}
         {% endfor %}
     </select>
@@ -26,10 +26,10 @@
     {% endif %}
 </form>
 <div class="question_text p-3">
-    {% with question_split = question.split('\n') %}
-        <p class="fw-bold fst-italic">{{question_split[0]}}</p>
+    {% with q_text_split = q_text.split('\n') %}
+        <p class="fw-bold fst-italic">{{q_text_split[0]}}</p>
         <p class="fst-italic m-0">
-        {% for line in question_split[1:] %}
+        {% for line in q_text_split[1:] %}
             {% if line[:5] == 'https' %}
                 <img class="w-100 p-3" src="{{line}}"><br>
             {% else %}
