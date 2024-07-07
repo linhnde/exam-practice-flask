@@ -1,8 +1,6 @@
 from google.cloud import storage
 import pandas as pd
 
-from app import exam_list, exam_library
-
 
 def list_blobs(bucket_name):
     """Lists all the blobs in the bucket."""
@@ -57,18 +55,6 @@ def load_bucket(bucket):
             e_library[exam_name] = compose_data(bucket, full_name).copy()
     return {'e_list': e_list,
             'e_library': e_library}
-
-
-def load_exam(bucket):
-    """
-    By calling load_bucket(), files list from our bucket is updated
-    Assigned those new data to current `exam_list` and `exam_library`
-    """
-    # Adjust value of global variables
-    global exam_list, exam_library
-    bucket_data = load_bucket(bucket)
-    exam_list = bucket_data['e_list']
-    exam_library = bucket_data['e_library']
 
 
 def combine_file_name(exam_name, size):

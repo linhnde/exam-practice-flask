@@ -14,11 +14,24 @@ BUCKET = "exam-banks"
 exam_list = []
 exam_library = {}
 
-app = Flask(__name__, instance_relative_config=True)
+# Set `instance_relative_config=True` in production
+app = Flask(__name__, instance_relative_config=False)
 # Default value during development
 app.secret_key = 'dev'
 # Overridden if this file exists in the instance folder
 app.config.from_pyfile('config.py')
+
+
+def load_exam(bucket):
+    """
+    By calling load_bucket(), files list from our bucket is updated
+    Assigned those new data to current `exam_list` and `exam_library`
+    """
+    # Adjust value of global variables
+    global exam_list, exam_library
+    bucket_data = load_bucket(bucket)
+    exam_list = bucket_data['e_list']
+    exam_library = bucket_data['e_library']
 
 
 def collect_choice(correct_list):
