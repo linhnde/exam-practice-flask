@@ -4,7 +4,8 @@ import random
 from flask import Flask, render_template, request, redirect, url_for, session
 
 # Import necessary modules
-from modules.quiz_brain import *
+from modules.data_process import *
+from modules.core_logic import *
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'google_credentials/load-quiz-bank.json'
 BUCKET = "exam-banks"
@@ -32,18 +33,6 @@ def collect_choice(correct_list):
         choice_list = [request.form.get(f'answer{i}').replace('\r', '') for i in range(len(session['all_choices']))
                        if request.form.get(f'answer{i}') is not None]
     return choice_list
-
-
-def load_exam():
-    """
-    By calling load_bucket(), files list from our bucket is updated
-    Assigned those new data to current `exam_list` and `exam_library`
-    """
-    # Adjust value of global variables
-    global exam_list, exam_library
-    b_load = load_bucket(BUCKET)
-    exam_list = b_load['e_list']
-    exam_library = b_load['e_library']
 
 
 def reset_progress():
@@ -91,7 +80,12 @@ def quiz():
     Render page to display one single question
     Arguments for render_template:
     - exam_list, exam_name: use to display drop menu of all available exams
-    - q_text, all_choices, correct
+    - q_text, all_choices, correct: core data of individual quiz
+    - choice: set of selected choices
+    - go_next: switch for enable go next if quiz submitted
+    - for_export: switch for enable export function if there is at least 1 failed quiz
+    - is_submitted: flag HTML form class to alter CSS after POST request
+    - disabled: quiz will be disabled if being submitted
     """
     template_file = f'{session["template_name"]}.html'
     # Extract current quiz number from `q_text`
@@ -179,30 +173,29 @@ def next_question():
 
 @app.route('/export')
 def export():
-    q_bank = exam_library[session['exam_name']]
-    failed_bank = q_bank.loc[session['failed_list']]
-    size = len(session['failed_list'])
-    filename = combine_file_name(session["exam_name"], size)
-    failed_bank.to_json(f"gs://{BUCKET}/{filename}")
-    load_exam()
+    export_gcs(exam_library=exam_library,
+               exam_name=session['exam_name'],
+               index_list=session['failed_list'],
+               bucket=BUCKET)
+    load_exam(BUCKET)
     return redirect(url_for('homepage'))
 
 
 @app.route('/finish')
 def finish():
     score = session['score']
-    question_completed = session['turn']
+    end_turn = session['turn']
     bank_size = len(session['question_index'])
-    percent = round(score / question_completed * 100)
+    correct_percent = round(score / end_turn * 100)
     return render_template('finish.html',
                            score=score,
-                           question_completed=question_completed,
+                           end_turn=end_turn,
                            size=bank_size,
-                           percent=percent,
+                           correct_percent=correct_percent,
                            for_export=not (session['failed_list'] == []))
 
 
 if __name__ == '__main__':
-    load_exam()
+    load_exam(BUCKET)
     server_port = os.environ.get('PORT', '8080')
     app.run(debug=True, port=server_port, host='0.0.0.0')

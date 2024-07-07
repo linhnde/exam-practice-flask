@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>You've reached the end of the quiz.</h1>
-<h1>Score: {{percent}} - {{score}}/{{question_completed}}</h1>
+<h1>Score: {{correct_percent}} - {{score}}/{{end_turn}}</h1>
 <h1>Bank size: {{size}}</h1>
 {% if for_export %}
     <a href="{{ url_for('export') }}" id="exam-export-btn" class="btn btn-dark btn-block btn-large" onclick="alert('Export successful!')">Export</a>

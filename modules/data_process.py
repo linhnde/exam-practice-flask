@@ -1,6 +1,8 @@
 from google.cloud import storage
 import pandas as pd
 
+from app import exam_list, exam_library
+
 
 def list_blobs(bucket_name):
     """Lists all the blobs in the bucket."""
@@ -33,14 +35,40 @@ def extract_exam_name(full_name):
 
 
 def compose_data(bucket_name, blob_file):
+    """
+    Turn JSON file in bucket into dataframe
+    """
     file_path = f"gs://{bucket_name}/{blob_file}"
     question_data = pd.read_json(file_path)
-    # Complete data, shuffle rows, reset index
-    # question_data = question_data.sample(frac=1).reset_index(drop=True)
-    # Pick multiple answers only
-    # mask = question_data['correct_1'] == question_data['correct_1']
-    # question_data = question_data[mask]
     return question_data
+
+
+def load_bucket(bucket):
+    """
+    List all blobs in bucket and return dataframe and exam name corresponding to each JSON file
+    """
+    e_list = []
+    e_library = {}
+    file_list = list_blobs(bucket)
+    for full_name in file_list:
+        if full_name.split('.')[-1] == 'json':
+            exam_name = extract_exam_name(full_name)
+            e_list.append(exam_name)
+            e_library[exam_name] = compose_data(bucket, full_name).copy()
+    return {'e_list': e_list,
+            'e_library': e_library}
+
+
+def load_exam(bucket):
+    """
+    By calling load_bucket(), files list from our bucket is updated
+    Assigned those new data to current `exam_list` and `exam_library`
+    """
+    # Adjust value of global variables
+    global exam_list, exam_library
+    bucket_data = load_bucket(bucket)
+    exam_list = bucket_data['e_list']
+    exam_library = bucket_data['e_library']
 
 
 def combine_file_name(exam_name, size):
@@ -59,3 +87,11 @@ def combine_file_name(exam_name, size):
     difficulty = parts[-2][1:-1].lower()
     file_name = f"{topic}_{difficulty}_{size}.json"
     return file_name
+
+
+def export_gcs(exam_library, exam_name, index_list, bucket):
+    q_bank = exam_library[exam_name]
+    failed_bank = q_bank.loc[index_list]
+    size = len(index_list)
+    filename = combine_file_name(exam_name, size)
+    failed_bank.to_json(f"gs://{bucket}/{filename}")

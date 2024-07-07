@@ -1,20 +1,4 @@
-import pandas as pd
-import re
 from collections import Counter
-from modules.data_load import *
-
-
-def load_bucket(bucket):
-    e_list = []
-    e_library = {}
-    file_list = list_blobs(bucket)
-    for full_name in file_list:
-        if full_name.split('.')[-1] == 'json':
-            exam_name = extract_exam_name(full_name)
-            e_list.append(exam_name)
-            e_library[exam_name] = compose_data(bucket, full_name).copy()
-    return {'e_list': e_list,
-            'e_library': e_library}
 
 
 def has_next(df, question_index):
