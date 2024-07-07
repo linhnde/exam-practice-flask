@@ -24,8 +24,8 @@ app.config.from_pyfile('config.py')
 
 def load_exam(bucket):
     """
-    By calling load_bucket(), files list from our bucket is updated
-    Assigned those new data to current `exam_list` and `exam_library`
+    By calling load_bucket(), files list from our bucket is updated.
+    Assigned those new data to current global variables `exam_list` and `exam_library`.
     """
     # Adjust value of global variables
     global exam_list, exam_library
@@ -36,7 +36,7 @@ def load_exam(bucket):
 
 def collect_choice(correct_list):
     """
-    Check current type of question, and collect list of choice(s) from POST request
+    Check current type of question, and collect list of choice(s) from POST request.
     """
     if len(correct_list) == 1:
         # Strip '\r' from html render for proper comparing with `correct` set
@@ -50,7 +50,7 @@ def collect_choice(correct_list):
 
 def reset_progress():
     """
-    Reset every session variables
+    Reset every session variables.
     """
     session['started'] = True
     # Set default exam name to load
@@ -69,6 +69,11 @@ def reset_progress():
 
 @app.route('/')
 def homepage():
+    """
+    - If fresh session, reset progress and begin to process first quiz.
+    - Redirect to `finish` if there is no more quiz.
+    - Most time, redirect to `quiz` module to continuous loading quiz.
+    """
     # If `started` is empty (or popped), reset_process() will be called
     if not session.get('started'):
         reset_progress()
@@ -80,6 +85,9 @@ def homepage():
 
 @app.route('/exam', methods=['GET', 'POST'])
 def select_exam():
+    """
+    Process POST request to change exam in the list and reload homepage.
+    """
     if request.method == 'POST':
         # Pop value of `started` so that reset_progress() would trigger when homepage() load
         session.pop('started', None)
@@ -90,15 +98,15 @@ def select_exam():
 @app.route('/quiz', methods=['GET', 'POST'])
 def quiz():
     """
-    Render page to display one single question
+    Render page to display one single question.
     Arguments for render_template:
-    - exam_list, exam_name: use to display drop menu of all available exams
-    - q_text, all_choices, correct: core data of individual quiz
-    - choice: set of selected choices
-    - go_next: switch for enable go next if quiz submitted
-    - for_export: switch for enable export function if there is at least 1 failed quiz
-    - is_submitted: flag HTML form class to alter CSS after POST request
-    - disabled: quiz will be disabled if being submitted
+    - exam_list, exam_name: use to display drop menu of all available exams.
+    - q_text, all_choices, correct: core data of individual quiz.
+    - choice: set of selected choices.
+    - go_next: switch for enable go next if quiz submitted.
+    - for_export: switch for enable export function if there is at least 1 failed quiz.
+    - is_submitted: flag HTML form class to alter CSS after POST request.
+    - disabled: quiz will be disabled if being submitted.
     """
     template_file = f'{session["template_name"]}.html'
     # Extract current quiz number from `q_text`
@@ -157,6 +165,10 @@ def quiz():
 
 @app.route('/next', methods=['GET'])
 def next_question():
+    """
+    Initialize quiz bank, store its indices into a list and shuffle the list.
+    Then keep loading quiz until there is no more quiz.
+    """
     q_bank = exam_library[session['exam_name']]
     if session['turn'] == 0:
         # Extract indices of quiz set to list
@@ -186,6 +198,10 @@ def next_question():
 
 @app.route('/export')
 def export():
+    """
+    Export set of failed quiz to GCS.
+    Then update exam list from the same bucket.
+    """
     export_gcs(exam_library=exam_library,
                exam_name=session['exam_name'],
                index_list=session['failed_list'],
@@ -196,6 +212,15 @@ def export():
 
 @app.route('/finish')
 def finish():
+    """
+    Display the record from the finished exam, include:
+    - Score.
+    - Stopped turn.
+    - Quiz bank size at total.
+    - Percentages of correct answers.
+    - `for_export` will be True if at least 1 failed quiz exists,
+    allow `Export` button enable to function in `finish` page
+    """
     score = session['score']
     end_turn = session['turn']
     bank_size = len(session['question_index'])
@@ -209,6 +234,12 @@ def finish():
 
 
 if __name__ == '__main__':
+    """
+    Main app flow.
+    """
+    # Load exam from GCS bucket first
     load_exam(BUCKET)
+    # Set port for server
     server_port = os.environ.get('PORT', '8080')
+    # Run app with corresponding configs
     app.run(debug=True, port=server_port, host='0.0.0.0')
