@@ -14,7 +14,7 @@ exam_list = []
 exam_library = {}
 
 app = Flask(__name__)
-app.secret_key = 'i12637812hd8172dyi12937'
+app.secret_key = 'dev'
 
 
 def collect_choice(correct_list):

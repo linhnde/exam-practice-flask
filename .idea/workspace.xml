@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="409b86cf-8064-4b7b-90a0-76ba2511041b" name="Changes" comment="update models">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+    <list default="true" id="409b86cf-8064-4b7b-90a0-76ba2511041b" name="Changes" comment="update choice templates code, refactor html classes and css.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/multi_choice.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/multi_choice.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/single_choice.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/single_choice.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +72,7 @@
     "Python.app.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.google.cloudcode.ide_session_index": "20240707_0000",
+    "com.google.cloudcode.ide_session_index": "20240707_0001",
     "git-widget-placeholder": "master",
     "last_opened_file_path": "/Users/linh/git/exam-practice-flask/templates",
     "node.js.detected.package.eslint": "true",
@@ -264,7 +260,8 @@
       <workItem from="1720017140982" duration="3464000" />
       <workItem from="1720061073672" duration="10953000" />
       <workItem from="1720077314359" duration="6803000" />
-      <workItem from="1720328287521" duration="3241000" />
+      <workItem from="1720328287521" duration="3379000" />
+      <workItem from="1720336295565" duration="22000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -394,7 +391,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720072233654</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="update choice templates code, refactor html classes and css.">
+      <option name="closed" value="true" />
+      <created>1720331969069</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1720331969069</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,7 +427,8 @@
     <MESSAGE value="refactor" />
     <MESSAGE value="edit README.md" />
     <MESSAGE value="update models" />
-    <option name="LAST_COMMIT_MESSAGE" value="update models" />
+    <MESSAGE value="update choice templates code, refactor html classes and css." />
+    <option name="LAST_COMMIT_MESSAGE" value="update choice templates code, refactor html classes and css." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/exam_practice_flask$app.coverage" NAME="app Coverage Results" MODIFIED="1720328578432" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
