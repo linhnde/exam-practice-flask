@@ -13,8 +13,11 @@ BUCKET = "exam-banks"
 exam_list = []
 exam_library = {}
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
+# Default value during development
 app.secret_key = 'dev'
+# Overridden if this file exists in the instance folder
+app.config.from_pyfile('config.py')
 
 
 def collect_choice(correct_list):
