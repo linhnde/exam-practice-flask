@@ -1,8 +1,8 @@
 from collections import Counter
 
 
-def has_next(df, question_index):
-    return question_index < len(df)
+def is_finished(q_index, q_bank):
+    return q_index == len(q_bank)
 
 
 def load_next(df, question_index, turn):

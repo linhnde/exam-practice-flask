@@ -27,7 +27,7 @@ def load_exam(bucket):
     By calling load_bucket(), files list from our bucket is updated.
     Assigned those new data to current global variables `exam_list` and `exam_library`.
     """
-    # Adjust value of global variables
+    # Adjust value of global variables. NOTE: Python global variable is not meant to module cross.
     global exam_list, exam_library
     bucket_data = load_bucket(bucket)
     exam_list = bucket_data['e_list']
@@ -177,23 +177,23 @@ def next_question():
         # Shuffle the indices list to randomize quiz
         random.shuffle(session['question_index'])
 
-    if has_next(q_bank, session['turn']):
-        # Pick next quiz, use `turn` to pick in quiz indices list
-        next_q_index = session['question_index'][session['turn']]
-        new_q = load_next(q_bank, next_q_index, session['turn'])
+    if is_finished(session['turn'], q_bank):
+        session['finish'] = True
+        return redirect(url_for('finish'))
 
-        # Assign session variables to new values
-        session['q_text'] = new_q['q_text']
-        session['correct'] = new_q['correct']
-        session['all_choices'] = new_q['all_choices']
-        session['template_name'] = new_q['template_name']
+    # Pick next quiz, use `turn` to pick in quiz indices list
+    next_q_index = session['question_index'][session['turn']]
+    new_q = load_next(q_bank, next_q_index, session['turn'])
 
-        # Shuffle order of choices
-        random.shuffle(session['all_choices'])
-        return redirect(url_for('quiz'))
+    # Assign session variables to new values
+    session['q_text'] = new_q['q_text']
+    session['correct'] = new_q['correct']
+    session['all_choices'] = new_q['all_choices']
+    session['template_name'] = new_q['template_name']
 
-    session['finish'] = True
-    return redirect(url_for('finish'))
+    # Shuffle order of choices
+    random.shuffle(session['all_choices'])
+    return redirect(url_for('quiz'))
 
 
 @app.route('/export')
@@ -202,10 +202,12 @@ def export():
     Export set of failed quiz to GCS.
     Then update exam list from the same bucket.
     """
+    # Export failed quiz list to GCS bucket
     export_gcs(exam_library=exam_library,
                exam_name=session['exam_name'],
                index_list=session['failed_list'],
                bucket=BUCKET)
+    # Update exam list with newly exported file
     load_exam(BUCKET)
     return redirect(url_for('homepage'))
 
@@ -237,7 +239,8 @@ if __name__ == '__main__':
     """
     Main app flow.
     """
-    # Load exam from GCS bucket first
+    # Load exam from GCS bucket first.
+    # Only load when initiate server connection or bucket updated (with newly exported file).
     load_exam(BUCKET)
     # Set port for server
     server_port = os.environ.get('PORT', '8080')
