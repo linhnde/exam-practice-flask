@@ -1,53 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
-<form id="quiz_form" class="w-100 p-3 mb-5 {{checked}}" action="{{ url_for('quiz') }}" method="post">
+<form id="quiz_form" class="w-100 p-3 mb-5 {{is_submitted}}" action="{{ url_for('quiz') }}" method="post">
     {% for i in range(all_choices|count) %}
-        {% if (all_choices[i] in correct) and (all_choices[i] in choice) %}
-            <label class="px-2 mb-3 correct">
-            <input class="form-check-input my-auto me-3" type="radio" name="answer" value="{{all_choices[i]}}" onclick="enable_single(true)" {{checked}} {{disabled}}>
-            {% for line in all_choices[i].split('\n') %}
-                {% if line[:5] == 'https' %}
-                    <img class="w-100 p-3" src="{{line}}"><br>
-                {% else %}
-                    {{ line }}<br>
-                {% endif %}
-            {% endfor %}
-            </label>
-        {% elif all_choices[i] in correct %}
-            <label class="px-2 mb-3 correct">
-            <input class="form-check-input my-auto me-3" type="radio" name="answer" value="{{all_choices[i]}}" onclick="enable_single(true)" {{disabled}}>
-            {% for line in all_choices[i].split('\n') %}
-                {% if line[:5] == 'https' %}
-                    <img class="w-100 p-3" src="{{line}}"><br>
-                {% else %}
-                    {{ line }}<br>
-                {% endif %}
-            {% endfor %}
-            </label>
-        {% elif all_choices[i] in choice %}
-            <label class="px-2 mb-3 incorrect">
-            <input class="form-check-input my-auto me-3" type="radio" name="answer" value="{{all_choices[i]}}" onclick="enable_single(true)" {{checked}} {{disabled}}>
-            {% for line in all_choices[i].split('\n') %}
-                {% if line[:5] == 'https' %}
-                    <img class="w-100 p-3" src="{{line}}"><br>
-                {% else %}
-                    {{ line }}<br>
-                {% endif %}
-            {% endfor %}
-            </label>
+        {% if all_choices[i] in choice %}
+            {% set is_chosen = "checked" %}
         {% else %}
-            <label class="px-2 mb-3">
-            <input class="form-check-input my-auto me-3" type="radio" name="answer" value="{{all_choices[i]}}" onclick="enable_single(true)" {{disabled}}>
-            {% for line in all_choices[i].split('\n') %}
-                {% if line[:5] == 'https' %}
-                    <img class="w-100 p-3" src="{{line}}"><br>
-                {% else %}
-                    {{ line }}<br>
-                {% endif %}
-            {% endfor %}
-            </label>
+            {% set is_chosen = "" %}
         {% endif %}
+
+        {% if all_choices[i] in correct %}
+                {% set is_correct = "correct" %}
+        {% elif is_chosen == "checked" %}
+            {% set is_correct = "incorrect" %}
+        {% else %}
+            {% set is_correct = "" %}
+        {% endif %}
+
+        <label class="px-2 mb-3 {{is_correct}}">
+        <input class="form-check-input my-auto me-3" type="radio" name="answer" value="{{all_choices[i]}}" onclick="enable_single(true)" {{is_chosen}} {{disabled}}>
+        {% for line in all_choices[i].split('\n') %}
+            {% if line[:5] == 'https' %}
+                <img class="w-100 p-3" src="{{line}}"><br>
+            {% else %}
+                {{ line }}<br>
+            {% endif %}
+        {% endfor %}
+        </label>
     {% endfor %}
 </form>
 

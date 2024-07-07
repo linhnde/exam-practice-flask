@@ -21,15 +21,15 @@ label {
     display: flex;
 }
 
-.checked label {
+.is_submitted label {
     color: LightGray;
 }
 
-.checked .correct {
+.submitted .correct {
     outline: 0.08rem solid lime;
     border-radius: 0.2rem;
 }
-.checked .incorrect {
+.submitted .incorrect {
    outline: 0.08rem solid orangered;
    border-radius: 0.2rem;
 }
