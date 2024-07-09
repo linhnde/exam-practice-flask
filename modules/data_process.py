@@ -22,9 +22,11 @@ def extract_exam_name(full_name):
     # Exclude extension behind dot
     file_name = full_name.split('.')[0]
     parts = file_name.split('_')
+    # If normal exam, not failed one
     if len(parts) == 3:
         topic = parts[0].upper()
     else:
+        # For failed exam
         topic = f"{parts[0].title()} {parts[1].upper()}"
     difficulty = parts[-2].title()
     size = parts[-1]
@@ -64,6 +66,7 @@ def combine_file_name(exam_name, size):
     file_name: xxx_yyy_111.json
     """
     parts = exam_name.split()
+    # If normal exam, not failed one
     if len(parts) == 3:
         # Convert to lowercase
         topic = f"failed_{parts[0].lower()}"
