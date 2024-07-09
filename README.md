@@ -3,6 +3,12 @@
 1. [Introduction](#introduction)
 2. [Folder structure](#folder-structure)
 3. [Features](#features)
+   1. [Session based authentication](#1-session-based-authentication)
+   2. [Load and update quiz sets from GCS bucket](#2-load-and-update-quiz-sets-from-gcs-bucket)
+   3. [Automatically shuffle choices to randomize answers pattern](#3-automatically-shuffle-choices-to-randomize-answers-pattern)
+   4. [Adaptive layout for single-choice and multiple-choices question](#4-adaptive-layout-for-single-choice-and-multiple-choices-question)
+   5. [Record fail list and export for further practice](#5-record-fail-list-and-export-for-further-practice)
+   6. [Record score for tracking performance](#6-record-score-for-tracking-performance)
 
 ## Introduction
 
@@ -67,7 +73,7 @@ def reset_progress():
     session['finish'] = False
 ```
 
-### 2. Load and update quiz sets from GCP bucket
+### 2. Load and update quiz sets from GCS bucket
 
 Quiz sets are loaded into app when server started and reassigned after failed exam list is exported.
 
@@ -100,11 +106,16 @@ if __name__ == '__main__':
 
 ### 3. Automatically shuffle choices to randomize answers pattern
 
+As `exam_list` and `exam_library` is global variables, they can only be set as server connection is initiated, 
+or occasionally when `load_exam()` is called to update exam list with new bucket items.
+
+Therefore, app uses list of indices saved in session variable to manage how to load questions to users.
+
 When user accesses app as new session, meaning `turn` zero, `question_index` will be generated from 
 indices of corresponding quiz bank.
 
-Then, these list of indices will be shuffled to make quiz order of individual user
-different from order of original dataset and each other's.
+Then, these list of indices will be shuffled to make quiz order of every user
+different from each other.
 
 ```python
 def next_question():
