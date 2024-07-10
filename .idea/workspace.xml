@@ -5,8 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="409b86cf-8064-4b7b-90a0-76ba2511041b" name="Changes" comment="Update README.md">
+      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,15 +74,15 @@
     "Python.app.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.google.cloudcode.ide_session_index": "20240709_0000",
+    "com.google.cloudcode.ide_session_index": "20240710_0021",
     "git-widget-placeholder": "master",
-    "last_opened_file_path": "/Users/linh/git/exam-practice-flask/templates",
+    "last_opened_file_path": "/Users/linh/git/exam-practice-flask",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.intellij.python.templateLanguages.PyTemplateLanguageModulesConfigurable",
+    "settings.editor.selected.configurable": "com.google.cloud.tools.intellij.configurables.DependenciesConfigurable",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -91,11 +93,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/templates" />
       <recent name="$PROJECT_DIR$/google_credentials" />
       <recent name="$PROJECT_DIR$/data" />
       <recent name="$PROJECT_DIR$/modules" />
-      <recent name="$PROJECT_DIR$/static" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/google_credentials" />
@@ -103,7 +105,7 @@
       <recent name="$PROJECT_DIR$/modules" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager" selected="Cloud Code: Cloud Run.Cloud Run: Run Locally">
     <configuration name="Cloud Run: Deploy" type="CloudCodeCloudRunConfigurationType" factoryName="CloudCodeCloudDeployRunConfigurationFactory" show_console_on_std_err="false" show_console_on_std_out="false" gcpProject="{&quot;googleUsername&quot;:&quot;linhnv01836@gmail.com&quot;,&quot;projectId&quot;:&quot;exam-practice-404408&quot;,&quot;projectName&quot;:&quot;exam-practice&quot;,&quot;projectNumber&quot;:727009940311}" imageBuilder="{&quot;name&quot;:&quot;Docker&quot;,&quot;payload&quot;:{&quot;path&quot;:&quot;Dockerfile&quot;}}" gcbSettings="{}">
       <option name="allowRunningInParallel" value="false" />
       <option name="buildEnvironment" value="Google Cloud Build" />
@@ -265,7 +267,12 @@
       <workItem from="1720338499437" duration="5819000" />
       <workItem from="1720357448136" duration="850000" />
       <workItem from="1720421429589" duration="4096000" />
-      <workItem from="1720507185533" duration="6375000" />
+      <workItem from="1720507185533" duration="6921000" />
+      <workItem from="1720574938595" duration="114000" />
+      <workItem from="1720575126574" duration="918000" />
+      <workItem from="1720577306090" duration="6000" />
+      <workItem from="1720611590248" duration="884000" />
+      <workItem from="1720616663813" duration="1315000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -459,7 +466,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720512809462</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Update README.md">
+      <option name="closed" value="true" />
+      <created>1720514367741</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1720514367741</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
