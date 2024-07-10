@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="409b86cf-8064-4b7b-90a0-76ba2511041b" name="Changes" comment="Update README.md">
-      <change afterPath="$PROJECT_DIR$/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+    <list default="true" id="409b86cf-8064-4b7b-90a0-76ba2511041b" name="Changes" comment="add Dockerfile for deploying">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +103,7 @@
       <recent name="$PROJECT_DIR$/modules" />
     </key>
   </component>
-  <component name="RunManager" selected="Cloud Code: Cloud Run.Cloud Run: Run Locally">
+  <component name="RunManager" selected="Cloud Code: Cloud Run.Cloud Run: Deploy">
     <configuration name="Cloud Run: Deploy" type="CloudCodeCloudRunConfigurationType" factoryName="CloudCodeCloudDeployRunConfigurationFactory" show_console_on_std_err="false" show_console_on_std_out="false" gcpProject="{&quot;googleUsername&quot;:&quot;linhnv01836@gmail.com&quot;,&quot;projectId&quot;:&quot;exam-practice-404408&quot;,&quot;projectName&quot;:&quot;exam-practice&quot;,&quot;projectNumber&quot;:727009940311}" imageBuilder="{&quot;name&quot;:&quot;Docker&quot;,&quot;payload&quot;:{&quot;path&quot;:&quot;Dockerfile&quot;}}" gcbSettings="{}">
       <option name="allowRunningInParallel" value="false" />
       <option name="buildEnvironment" value="Google Cloud Build" />
@@ -272,7 +270,7 @@
       <workItem from="1720575126574" duration="918000" />
       <workItem from="1720577306090" duration="6000" />
       <workItem from="1720611590248" duration="884000" />
-      <workItem from="1720616663813" duration="1315000" />
+      <workItem from="1720616663813" duration="2159000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -474,7 +472,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720514367741</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="add Dockerfile for deploying">
+      <option name="closed" value="true" />
+      <created>1720618237325</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1720618237325</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -507,7 +513,8 @@
     <MESSAGE value="edit" />
     <MESSAGE value="refactor" />
     <MESSAGE value="Update README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update README.md" />
+    <MESSAGE value="add Dockerfile for deploying" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Dockerfile for deploying" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/exam_practice_flask$app.coverage" NAME="app Coverage Results" MODIFIED="1720511323370" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
