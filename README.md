@@ -1,4 +1,4 @@
-# Exam Practice: A lightweight web application to load quiz and use for practice
+# Exam Practice (Flask-based): a web application to load quiz and use for practice
 
 ## Demo: [Google Generated Link](https://exam-practice-4v5nr5cx6a-as.a.run.app/)
 
